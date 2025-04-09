@@ -5,7 +5,7 @@ CSV z dwiema kolumnami: `time`, `voltage`
 
 ## Użycie
 ```bash
-python scripts/run_analysis.py --input data/sample_ecg.csv --output results/ecg_plot.png
+python scripts.run_analysis --input data/sample_ecg.csv
 ```
 
 Dostępne opcje:
