@@ -1,7 +1,7 @@
 Prosty analizator sygnału EKG z interfejsem wiersza poleceń (CLI).
 
 ## Dane wejściowe
-CSV z dwiema kolumnami: `time`, `voltage`
+CSV z dwiema kolumnami: `time`, `voltage`. Jednostką "Time" jest sekunda.
 
 ## Użycie
 ```bash
