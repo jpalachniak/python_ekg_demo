@@ -19,8 +19,9 @@ def main():
     plot_ecg(time, voltage, filtered, peaks, args.output)
 
     print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
-    hr= calculate_hr(len(peaks),len(time))
-    print(f'{hr}')
+    duration = len(time)/args.fs
+    hr= calculate_hr(len(peaks),duration) 
+    print(f'Srednie tetno: {hr:.2f}')
 
 if __name__ == "__main__":
     main()

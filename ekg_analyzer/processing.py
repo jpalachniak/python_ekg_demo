@@ -13,5 +13,5 @@ def detect_peaks(signal, distance=50):
     return peaks
 
 def calculate_hr(num_peaks, duration_signal):
-    bpm = (num_peaks/duration_signal) *60
+    bpm = ((num_peaks-1)/duration_signal) *60
     return bpm
