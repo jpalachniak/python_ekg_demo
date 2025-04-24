@@ -1,5 +1,5 @@
 import argparse
-from ekg_analyzer.utils import load_ecg_csv
+from ekg_analyzer.utils import load_ecg_csv, save_stats
 from ekg_analyzer.processing import butter_lowpass_filter, detect_peaks, calculate_hr
 from ekg_analyzer.visualization import plot_ecg
 
@@ -21,6 +21,7 @@ def main():
     print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
     hr= calculate_hr(len(peaks),len(time))
     print(f'{hr}')
+    save_stats(len(peaks), time[-1], hr)
 
 if __name__ == "__main__":
     main()
