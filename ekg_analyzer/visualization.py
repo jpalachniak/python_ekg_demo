@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import os
 
-def plot_ecg(time, original, filtered, peaks, save_path):
+def plot_ecg(time, original, filtered, peaks, save_path, visualisation):
     plt.figure(figsize=(10, 5))
     plt.plot(time, original, label='Original', alpha=0.5)
     plt.plot(time, filtered, label='Filtered', linewidth=2)
@@ -13,5 +13,8 @@ def plot_ecg(time, original, filtered, peaks, save_path):
     plt.tight_layout()
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    plt.savefig(save_path)
+    if visualisation:     
+        plt.show()
+    else:
+        plt.savefig(save_path)
     plt.close()

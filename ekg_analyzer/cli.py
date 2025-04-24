@@ -10,15 +10,19 @@ def main():
     parser.add_argument('--fs', type=int, default=250, help="Sampling frequency")
     parser.add_argument('--cutoff', type=float, default=40.0, help="Lowpass filter cutoff frequency")
     parser.add_argument('--distance', type=int, default=50, help="Minimum distance between peaks")
+    parser.add_argument('--show', action='store_true', help="Show plot")
     
     args = parser.parse_args()
 
     time, voltage = load_ecg_csv(args.input)
     filtered = butter_lowpass_filter(voltage, cutoff=args.cutoff, fs=args.fs)
     peaks = detect_peaks(filtered, distance=args.distance)
-    plot_ecg(time, voltage, filtered, peaks, args.output)
+    plot_ecg(time, voltage, filtered, peaks, args.output, args.show)
 
-    print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
+    if args.show:
+        print(f"Analysis complete. Found {len(peaks)} peaks.")
+    else:
+        print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
 
 if __name__ == "__main__":
     main()
