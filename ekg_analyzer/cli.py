@@ -2,7 +2,7 @@ import argparse
 from ekg_analyzer.utils import load_ecg_csv
 from ekg_analyzer.processing import butter_lowpass_filter, detect_peaks
 from ekg_analyzer.visualization import plot_ecg
-
+import pandas as pd
 def main():
     parser = argparse.ArgumentParser(description="EKG Signal Analyzer")
     parser.add_argument('--input', required=True, help="Path to input CSV file")
@@ -13,12 +13,22 @@ def main():
     
     args = parser.parse_args()
 
-    time, voltage = load_ecg_csv(args.input)
-    filtered = butter_lowpass_filter(voltage, cutoff=args.cutoff, fs=args.fs)
-    peaks = detect_peaks(filtered, distance=args.distance)
-    plot_ecg(time, voltage, filtered, peaks, args.output)
+    try:
+        time, voltage = load_ecg_csv(args.input)
+        filtered = butter_lowpass_filter(voltage, cutoff=args.cutoff, fs=args.fs)
+        peaks = detect_peaks(filtered, distance=args.distance)
+        plot_ecg(time, voltage, filtered, peaks, args.output)
 
-    print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
+        print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
+        print("Plik został zapisany pomyślnie.")
+    except FileNotFoundError:
+        print("Nie znaleziono pliku. Upewnij się, że ścieżka jest poprawna")
+    except pd.errors.EmptyDataError:
+        print("Plik jest pusty.")
+    except ValueError as VE:
+        print("Błąd w formatowaniu danych: kolumny 'time' i 'voltage' muszą zawierać tylko wartości liczbowe")
+        print(f"Szczegółowe informacje: {VE}")
 
+    
 if __name__ == "__main__":
     main()
