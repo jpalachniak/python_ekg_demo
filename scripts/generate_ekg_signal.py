@@ -15,8 +15,13 @@ for i in range(1, 10):
 signal += 0.1 * np.sin(2 * np.pi * 1.0 * t)
 
 # Zapisz do CSV
-df = pd.DataFrame({'time': t, 'voltage': signal})
-df.to_csv('data/sample_ecg.csv', index=False)
+try: 
+    df = pd.DataFrame({'time': t, 'voltage': signal})
+    df.to_csv('data/sample_ecg.csv', index=False)
+    print("Plik został zapisany pomyślnie.")
+except FileNotFoundError:
+    print("Nie znaleziono pliku. Upewnij się, że ścieżka jest poprawna")
+
 
 # Wykres podglądowy
 plt.plot(t, signal)
