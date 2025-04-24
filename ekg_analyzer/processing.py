@@ -11,3 +11,7 @@ def butter_lowpass_filter(signal, cutoff=40, fs=250, order=5):
 def detect_peaks(signal, distance=50):
     peaks, _ = find_peaks(signal, distance=distance)
     return peaks
+
+def calculate_hr(num_peaks, duration_signal):
+    bpm = ((num_peaks-1)/duration_signal) *60
+    return bpm

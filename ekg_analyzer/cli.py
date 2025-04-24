@@ -1,6 +1,6 @@
 import argparse
 from ekg_analyzer.utils import load_ecg_csv
-from ekg_analyzer.processing import butter_lowpass_filter, detect_peaks
+from ekg_analyzer.processing import butter_lowpass_filter, detect_peaks, calculate_hr
 from ekg_analyzer.visualization import plot_ecg
 
 def main():
@@ -19,6 +19,9 @@ def main():
     plot_ecg(time, voltage, filtered, peaks, args.output)
 
     print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
+    duration = len(time)/args.fs
+    hr= calculate_hr(len(peaks),duration) 
+    print(f'Srednie tetno: {hr:.2f}')
 
 if __name__ == "__main__":
     main()
