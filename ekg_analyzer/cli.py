@@ -1,6 +1,6 @@
 import argparse
-from ekg_analyzer.utils import load_ecg_csv
-from ekg_analyzer.processing import butter_lowpass_filter, detect_peaks
+from ekg_analyzer.utils import load_ecg_csv, save_stats
+from ekg_analyzer.processing import butter_lowpass_filter, detect_peaks, calculate_hr
 from ekg_analyzer.visualization import plot_ecg
 import pandas as pd
 def main():
@@ -20,6 +20,11 @@ def main():
         plot_ecg(time, voltage, filtered, peaks, args.output)
 
         print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
+        hr= calculate_hr(len(peaks),len(time))
+        print(f'{hr}')
+        save_stats(len(peaks), time[-1], hr)
+
+        print(f"Analysis complete. Found {len(peaks)} peaks. Output saved to {args.output}")
         print("Plik został zapisany pomyślnie.")
     except FileNotFoundError:
         print("Nie znaleziono pliku. Upewnij się, że ścieżka jest poprawna")
@@ -28,7 +33,6 @@ def main():
     except ValueError as VE:
         print("Błąd w formatowaniu danych: kolumny 'time' i 'voltage' muszą zawierać tylko wartości liczbowe")
         print(f"Szczegółowe informacje: {VE}")
-
     
 if __name__ == "__main__":
     main()
