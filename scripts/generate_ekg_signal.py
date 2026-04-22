@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-fs = 250               # częstotliwość próbkowania (Hz)
+fs = 255               # częstotliwość próbkowania (Hz)
 t = np.linspace(0, 10, fs * 10)  # 10 sekund sygnału
 signal = 0.01 * np.random.randn(len(t))  # szum
 
